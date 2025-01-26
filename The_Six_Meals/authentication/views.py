@@ -8,7 +8,7 @@ from drf_yasg.utils import swagger_auto_schema
 class UserSerializer(generics.GenericAPIView): #UserSerializer is used to create a user
     serializer_class=serializers.UserCreationSerializer
 
-    @swagger_auto_schema(operation_summary="Create a user account by signing Up") #swagger_auto_schema is used to create a schema for the API
+    @swagger_auto_schema(operation_summary="Create a new Health Keeper account by signing Up") #swagger_auto_schema is used to create a schema for the API
     def post(self,request):
         data=request.data
 

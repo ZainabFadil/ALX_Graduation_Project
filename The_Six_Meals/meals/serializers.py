@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 
 class MealCreationSerializer(serializers.ModelSerializer): #MealCreationSerializer is used to create a meal
     meal_name = serializers.CharField(default='Healthy Meal')
-    type = serializers.CharField(default='BREAKFAST')
+    types = serializers.CharField(default='BREAKFAST')
     meal_choices = serializers.CharField(default='VEGAN')
     meal_status = serializers.CharField(default='PENDING')
     description = serializers.CharField(default='Description')
@@ -21,11 +21,11 @@ class MealCreationSerializer(serializers.ModelSerializer): #MealCreationSerializ
     customer = serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta:
         model = Meal
-        fields = ['id','meal_name', 'type', 'meal_status','created_at', 'updated_at', 'fats_in_grams', 'meal_choices', 'description', 'Ingredients', 'Recipe', 'vitamins', 'minerals', 'calories', 'proteins_in_grams', 'fats_in_grams', 'carbohydrates_in_grams', 'created_at', 'updated_at', 'customer']
+        fields = ['id','meal_name', 'types', 'meal_status','created_at', 'updated_at', 'fats_in_grams', 'meal_choices', 'description', 'Ingredients', 'Recipe', 'vitamins', 'minerals', 'calories', 'proteins_in_grams', 'fats_in_grams', 'carbohydrates_in_grams', 'created_at', 'updated_at', 'customer']
 
 class MealDetailSerializer(serializers.ModelSerializer): #MealDetailSerializer is used to display the meal details
     meal_name = serializers.CharField(default='Healthy Meal')
-    type = serializers.CharField(default='BREAKFAST')
+    types = serializers.CharField(default='BREAKFAST')
     meal_choices = serializers.CharField(default='VEGAN')
     meal_status = serializers.CharField(default='PENDING')
     description = serializers.CharField(default='Description')
@@ -43,7 +43,22 @@ class MealDetailSerializer(serializers.ModelSerializer): #MealDetailSerializer i
 
     class Meta:
         model = Meal
-        fields = ['id','meal_name', 'type', 'meal_status','created_at', 'updated_at', 'fats_in_grams', 'meal_choices', 'description', 'Ingredients', 'Recipe', 'vitamins', 'minerals', 'calories', 'proteins_in_grams', 'fats_in_grams', 'carbohydrates_in_grams', 'created_at', 'updated_at', 'customer']
+        fields = ['id','meal_name', 'types', 'meal_status','created_at', 'updated_at', 'fats_in_grams', 'meal_choices', 'description', 'Ingredients', 'Recipe', 'vitamins', 'minerals', 'calories', 'proteins_in_grams', 'fats_in_grams', 'carbohydrates_in_grams', 'created_at', 'updated_at', 'customer']
+
+    def validate_types(sself, value):
+        if value not in dict(Meal.TYPES):
+            raise serializers.ValidationError("Invalid meal type.")
+        return value
+    
+    def validate_meal_choices(self, value):
+        if value not in dict(Meal.MEAL_CHOICES):
+            raise serializers.ValidationError("Invalid meal choice.")
+        return value
+    
+    def validate_meal_status(self, value):
+        if value not in dict(Meal.MEAL_STATUS):
+            raise serializers.ValidationError("Invalid meal status.")
+        return value
         
 
 class MealStatusUpdateSerializer(serializers.ModelSerializer): #MealStatusUpdateSerializer is used to update the meal status

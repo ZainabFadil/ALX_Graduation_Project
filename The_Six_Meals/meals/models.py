@@ -35,7 +35,7 @@ class Meal(models.Model): #Meal is a model to store the meal details
     )
 
     meal_name = models.CharField(max_length=200, default='Healthy Meal')
-    type = models.CharField(max_length=80, choices=TYPES, default='BREAKFAST')
+    types = models.CharField(max_length=80, choices=TYPES, default='BREAKFAST')
     meal_choices = models.CharField(max_length=300, choices=MEAL_CHOICES, blank=True, default='VEGAN')
     meal_status = models.CharField(max_length=80, choices=MEAL_STATUS, default=MEAL_STATUS[0][0])
     description = models.CharField(max_length=1000, default='Description')
@@ -51,4 +51,4 @@ class Meal(models.Model): #Meal is a model to store the meal details
     updated_at = models.DateTimeField(auto_now=True)
     customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='meals', null=True, blank=True)
     def __str__(self): #__str__ is used to return the string representation of the object
-        return f"<Meal {self.meal_name} ({self.type})>"
+        return f"<Meal {self.meal_name} ({self.types})>"
