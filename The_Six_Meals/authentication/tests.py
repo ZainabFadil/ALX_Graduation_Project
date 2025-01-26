@@ -1,6 +1,6 @@
 from rest_framework.test import APITestCase
-from rest_framework import status
-from django.urls import reverse
+from rest_framework import status #status is used to check the status of the response
+from django.urls import reverse 
 from django.contrib.auth import get_user_model
 import datetime
 from phonenumber_field.phonenumber import PhoneNumber
