@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ignore Python bytecode files
 *.pyc
 
@@ -13,3 +14,15 @@ __pycache__/
 
 # Ignore Visual Studio files
 .vs/
+=======
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.vscode/
+.idea/
+.vs/
+meals/migrations/
+.DS_Store
+>>>>>>> ca727392e9e3b194570624e9b66ae38fb2f663a4
