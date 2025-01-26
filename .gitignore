@@ -1,0 +1,15 @@
+# Ignore Python bytecode files
+*.pyc
+
+# Ignore directories
+__pycache__/
+.vscode/
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore migrations folder
+/meals/migrations/
+
+# Ignore Visual Studio files
+.vs/
