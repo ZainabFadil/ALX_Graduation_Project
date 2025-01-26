@@ -12,7 +12,7 @@ import datetime
 
 class CustomUserManager(BaseUserManager): 
     def create_user(self,email,password,**extra_fields): 
-        if not email: #if email is not provided
+        if not email: #if email is not correct, there will be an error
             raise ValueError(_('Please enter a valid E-mail address'))
 
         email=self.normalize_email(email) #normalize_email is used to convert the email to lowercase
