@@ -4,7 +4,7 @@ from rest_framework.validators import ValidationError
 from django.contrib.auth.hashers import make_password
 from phonenumber_field.serializerfields import PhoneNumberField
 from django.core.validators import validate_email
-import re
+import re #re is used to work with regular expressions
 
 
 
