@@ -2,10 +2,10 @@ from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
 from django.urls import reverse
 from django.contrib.auth import get_user_model
-from meals.models import Meal  # Use absolute import
+from meals.models import Meal  
 
 
-User = get_user_model()  # Get the custom user model
+User = get_user_model()  
 
 
 class MealViewsTests(APITestCase):
@@ -15,7 +15,6 @@ class MealViewsTests(APITestCase):
         """
         self.client = APIClient()
         self.url = '/meal/meals/'
-        # Create a test user
         self.user = User.objects.create_user(
             first_name='Mahmoud',
             last_name='Ali',
@@ -32,10 +31,8 @@ class MealViewsTests(APITestCase):
             gender='M'
         )
 
-        # Authenticate the user for requests
         self.client.force_authenticate(user=self.user)
 
-        # Create a test meal for the user
         self.meal_data = {
             'meal_name': 'Salad',
             'types': 'BREAKFAST',
@@ -54,8 +51,6 @@ class MealViewsTests(APITestCase):
         self.meal = Meal.objects.create(customer=self.user, **self.meal_data)
 
         
-
-        # URLs
         self.create_meal_url = reverse('create_meal')  # Adjust based on your URL name
         self.meal_detail_url = reverse('meal_detail', kwargs={'meal_id': self.meal.id})
         self.user_meal_url = reverse('users_meals', kwargs={'user_id': self.user.id})
@@ -68,18 +63,18 @@ class MealViewsTests(APITestCase):
         self.assertContains(response, "Hello, Authenticated Health Keeper!")
 
     def test_meal_create_list_view(self):
-        # Test GET request to list meals
+
         response = self.client.get(self.create_meal_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('meals', response.data)
 
-        # Test POST request to create a meal (authenticated)
+
         response = self.client.post(self.create_meal_url, self.meal_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['meal_name'], self.meal_data['meal_name'])
 
     def test_meal_detail_view(self):
-        # Test GET request for meal details
+
         admin_user = User.objects.create_superuser(
             email="soha@appe.com", password="vbh@cfg123", username="sohaadmin"
         )
@@ -90,7 +85,7 @@ class MealViewsTests(APITestCase):
         self.assertEqual(response.data['meal_name'], self.meal_data['meal_name'])
 
     def test_update_meal_status_view(self):
-        # Create and authenticate an admin user
+
         admin_user = User.objects.create_superuser(
             email="samir@example.com", password="addsmjf5123", username="samirsaad"
         )
@@ -112,31 +107,31 @@ class MealViewsTests(APITestCase):
             carbohydrates_in_grams=80,
         )
 
-        # Define the URL for the PUT request
+   
         self.url = reverse('update_meal_status', kwargs={'meal_id': self.meal.id})
 
-        # Update the meal status
+
         updated_data = {'meal_status': 'COMPLETED'}
         response = self.client.put(self.url, updated_data, format='json')
 
-        # Assert the status code is 200 OK
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        # Refresh the meal from the database and check if it updated
+
         self.meal.refresh_from_db()
         self.assertEqual(self.meal.meal_status, 'COMPLETED')
 
 
 
     def test_user_meal_view(self):
-        # Test GET request for meals by a specific user
+
         response = self.client.get(self.user_meal_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]['meal_name'], self.meal_data['meal_name'])
 
     def test_user_meal_detail_view(self):
-        # Test GET request for a specific user's meal detail
+
         response = self.client.get(self.user_meal_detail_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['meal_name'], self.meal_data['meal_name'])
@@ -146,17 +141,17 @@ class MealViewsTests(APITestCase):
         self.admin_user = User.objects.create_superuser(
         email="saber@app.com", password="BNR#4f123", username="saberahemd"
            )
-    #Ensure meal owner is authenticated
+
         self.client.force_authenticate(user=self.admin_user)
         response = self.client.delete(self.meal_detail_url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Meal.objects.count(), 0)
 
     def test_meal_create_without_login(self):
-        # Log out the user
+
         self.client.logout()
 
-        # Test POST request without login (should return 401 Unauthorized)
+
         response = self.client.post(self.create_meal_url, self.meal_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
@@ -169,11 +164,11 @@ class MealViewsTests(APITestCase):
         'ingredients': 'Pasta, tomatoes, garlic, cream',
         'calories': 500,
         'meal_time': '12:00',
-        'meal_choice': 'fresh',  # Invalid choice
-        'health_keeper': 'mahmoudali',  # Assume this is a valid health keeper username
+        'meal_choice': 'fresh',  
+        'health_keeper': 'mahmoudali',  
     }
 
-        # Test that creating a user with invalid meal choice returns a bad request
+
         response = self.client.post(self.url, self.invalid_meal_choices_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(User.objects.count(), 1)
@@ -182,15 +177,15 @@ class MealViewsTests(APITestCase):
 
         self.invalid_meal_types_data = {
         'meal_name': 'Pasta Primavera',
-        'types': 'desserts',  # invalid
+        'types': 'desserts',  
         'ingredients': 'Pasta, tomatoes, garlic, cream',
         'calories': 500,
         'meal_time': '12:00',
         'meal_choice': 'VEGAN',
-        'health_keeper': 'mahmoudali',  # a valid health keeper username
+        'health_keeper': 'mahmoudali', 
     }
 
-        # Test that creating a user with invalid meal type returns a bad request
+
         response = self.client.post(self.url, self.invalid_meal_types_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(User.objects.count(), 1)
@@ -204,11 +199,11 @@ class MealViewsTests(APITestCase):
         'calories': 500,
         'meal_time': '12:00',
         'meal_choice': 'VEGAN',
-        'meal_status': 'READY', # invalid
-        'health_keeper': 'mahmoudali',  # a valid health keeper username
+        'meal_status': 'READY', 
+        'health_keeper': 'mahmoudali', 
     }
 
-        # Test that creating a user with invalid meal status returns a bad request
+
         response = self.client.post(self.url, self.invalid_meal_status_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(User.objects.count(), 1)
