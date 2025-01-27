@@ -6,7 +6,7 @@
 # completed), nutritional information (e.g., calories, proteins, fats), 
 # and other relevant details such as ingredients and recipe. 
 # The model also has a foreign key relationship with the User model, 
-# associating each meal with a specific user.
+# associating each meal with a specific user for tracking meal ownership.
 
 from django.db import models
 from django.contrib.auth import get_user_model
