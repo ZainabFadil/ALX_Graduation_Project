@@ -1,3 +1,11 @@
+# Django Authentication Views
+# -----------------------------
+# This file contains views related to user authentication, specifically 
+# for user creation (sign-up). It uses Django REST Framework (DRF) to 
+# handle the creation of new users through a POST request. The views 
+# validate the data using serializers and return appropriate response 
+# statuses based on the result (success or failure).
+
 from django.shortcuts import render
 from .models import User
 from rest_framework import generics,status
