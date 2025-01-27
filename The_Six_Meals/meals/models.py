@@ -1,3 +1,13 @@
+# Django Model for Meal
+# -----------------------
+# This file defines the Meal model, which stores details about different 
+# types of meals, including their names, types (e.g., breakfast, lunch), 
+# dietary choices (e.g., vegan, gluten-free), meal status (e.g., pending, 
+# completed), nutritional information (e.g., calories, proteins, fats), 
+# and other relevant details such as ingredients and recipe. 
+# The model also has a foreign key relationship with the User model, 
+# associating each meal with a specific user.
+
 from django.db import models
 from django.contrib.auth import get_user_model
 
