@@ -1,8 +1,7 @@
 # Django Admin Configuration for Meal Model
 # -------------------------------------------
 # This file registers the Meal model with the Django admin interface, allowing 
-# easy management of meals from the Django admin panel. It defines custom 
-# configurations for displaying and filtering the Meal model data, including 
+# easy management of meals from the Django admin panel.
 # the fields to display in the list view, filters for narrowing down the list, 
 # and search functionality to find meals by its name, status, or type.
 # We used user-based access for meals management.
