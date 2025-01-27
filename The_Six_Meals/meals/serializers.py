@@ -8,7 +8,6 @@
 #    values for fields.
 # 2. MealDetailSerializer: Used to display detailed meal information.
 # 3. MealStatusUpdateSerializer: Used to update the status of a meal.
-#
 # The serializers include validation logic to ensure the provided meal 
 
 from rest_framework import serializers
