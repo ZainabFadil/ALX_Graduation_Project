@@ -10,8 +10,6 @@
 # 3. MealStatusUpdateSerializer: Used to update the status of a meal.
 #
 # The serializers include validation logic to ensure the provided meal 
-# type, meal choice, and status are valid according to the predefined choices 
-# in the Meal model.
 
 from rest_framework import serializers
 from .models import Meal
