@@ -1,3 +1,18 @@
+# Django REST Framework Serializers for Meal Model
+# -------------------------------------------------
+# This file contains serializers for the Meal model, which are used to 
+# handle meal-related data for API requests and responses. It defines 
+# three serializers:
+# 
+# 1. MealCreationSerializer: Used to create new meal records with default 
+#    values for fields.
+# 2. MealDetailSerializer: Used to display detailed meal information.
+# 3. MealStatusUpdateSerializer: Used to update the status of a meal.
+#
+# The serializers include validation logic to ensure the provided meal 
+# type, meal choice, and status are valid according to the predefined choices 
+# in the Meal model.
+
 from rest_framework import serializers
 from .models import Meal
 from rest_framework.views import APIView
