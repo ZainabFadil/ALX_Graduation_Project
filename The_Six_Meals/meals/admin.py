@@ -5,6 +5,7 @@
 # configurations for displaying and filtering the Meal model data, including 
 # the fields to display in the list view, filters for narrowing down the list, 
 # and search functionality to find meals by name, status, or type.
+# We used user-based access for meals management.
 
 from django.contrib import admin
 from .models import Meal
