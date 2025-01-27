@@ -18,7 +18,7 @@ DEBUG = config('DEBUG', cast=bool, default=True)
 ALLOWED_HOSTS = []
 
 
-# Application definition
+# Application definition - The_Six_Meals/project/settings.py
 
 INSTALLED_APPS = [
     'django.contrib.admin',
