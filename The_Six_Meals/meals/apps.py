@@ -2,7 +2,6 @@
 # ---------------------------------------
 # This file contains the configuration for the 'meals' app. The MealsConfig 
 # class inherits from AppConfig and defines the app's name and default auto 
-# field type. This is used by Django to initialize the app when the project starts.
 # django.apps is a module that provides a registry of installed applications.
 
 
